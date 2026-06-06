@@ -1,0 +1,51 @@
+{
+  "name": "Reward",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Reward name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Reward description"
+    },
+    "points_required": {
+      "type": "number",
+      "description": "Points needed to redeem"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "free_entry",
+        "merch",
+        "vip",
+        "discount",
+        "special"
+      ],
+      "default": "special"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Emoji icon"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "draft",
+        "hidden"
+      ],
+      "default": "draft"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Available quantity, 0 = unlimited"
+    }
+  },
+  "required": [
+    "name",
+    "points_required",
+    "status"
+  ]
+}
