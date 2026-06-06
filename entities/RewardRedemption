@@ -1,0 +1,84 @@
+{
+  "name": "RewardRedemption",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email of the user who redeemed"
+    },
+    "reward_id": {
+      "type": "string"
+    },
+    "reward_name": {
+      "type": "string"
+    },
+    "reward_type": {
+      "type": "string",
+      "enum": [
+        "free_ticket",
+        "discount_25",
+        "discount_50",
+        "group_pass"
+      ],
+      "default": "free_ticket"
+    },
+    "points_spent": {
+      "type": "number"
+    },
+    "barcode_value": {
+      "type": "string",
+      "description": "NV-REWARD-{id}"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "used",
+        "expired",
+        "cancelled",
+        "restored"
+      ],
+      "default": "active"
+    },
+    "redeemed_at": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string",
+      "description": "created_at + 30 days"
+    },
+    "used_at": {
+      "type": "string"
+    },
+    "used_by_staff_id": {
+      "type": "string"
+    },
+    "used_by_staff_name": {
+      "type": "string"
+    },
+    "applied_to_ticket_id": {
+      "type": "string"
+    },
+    "restored_at": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "session_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_email",
+    "reward_name",
+    "points_spent",
+    "barcode_value"
+  ]
+}
