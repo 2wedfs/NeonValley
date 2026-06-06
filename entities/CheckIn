@@ -1,0 +1,114 @@
+{
+  "name": "CheckIn",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string",
+      "description": "User display name"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "User email"
+    },
+    "member_id": {
+      "type": "string",
+      "description": "User member ID e.g. NV-1234-AB"
+    },
+    "qr_code_value": {
+      "type": "string",
+      "description": "QR pass value scanned"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "event_start_time": {
+      "type": "string",
+      "description": "ISO timestamp of event start"
+    },
+    "scan_type": {
+      "type": "string",
+      "enum": [
+        "member_pass",
+        "ticket",
+        "reward_redemption"
+      ],
+      "default": "member_pass",
+      "description": "What type of code was scanned"
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": [
+        "paid_entry",
+        "free_ticket",
+        "discounted_entry"
+      ],
+      "default": "paid_entry",
+      "description": "How user entered"
+    },
+    "ticket_id": {
+      "type": "string",
+      "description": "Linked Ticket ID if ticket scan"
+    },
+    "original_price": {
+      "type": "number",
+      "description": "Base price before discounts"
+    },
+    "discount_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "amount_paid": {
+      "type": "number",
+      "description": "Final amount paid at door in $"
+    },
+    "points_earned": {
+      "type": "number",
+      "description": "Points awarded at this check-in"
+    },
+    "reward_redemption_id": {
+      "type": "string",
+      "description": "Linked RewardRedemption ID"
+    },
+    "reward_name": {
+      "type": "string",
+      "description": "Reward name if applicable"
+    },
+    "staff_id": {
+      "type": "string"
+    },
+    "staff_name": {
+      "type": "string",
+      "description": "Staff display name"
+    },
+    "staff_email": {
+      "type": "string",
+      "description": "Staff member email"
+    },
+    "event_title": {
+      "type": "string",
+      "description": "Event / session name"
+    },
+    "session_name": {
+      "type": "string",
+      "default": "Bay Area Check-In"
+    },
+    "check_in_time": {
+      "type": "string",
+      "description": "ISO timestamp of check-in"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_email",
+    "amount_paid",
+    "points_earned"
+  ]
+}
