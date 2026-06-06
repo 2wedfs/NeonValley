@@ -49,9 +49,15 @@ const AuthenticatedApp = () => {
   }
 
   if (authError) {
+    const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
+    const currentPath = window.location.pathname.startsWith(basePath)
+      ? window.location.pathname.slice(basePath.length) || '/'
+      : window.location.pathname;
+    const authPage = ['/login', '/register', '/forgot-password', '/reset-password', '/onboarding'].includes(currentPath);
+
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
+    } else if (authError.type === 'auth_required' && !authPage) {
       navigateToLogin();
       return null;
     }
