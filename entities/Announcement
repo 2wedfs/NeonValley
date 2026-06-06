@@ -1,0 +1,50 @@
+{
+  "name": "Announcement",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Announcement title"
+    },
+    "message": {
+      "type": "string",
+      "description": "Full announcement text"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "event_drop",
+        "reward_alert",
+        "general",
+        "important"
+      ],
+      "default": "general"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "draft",
+        "hidden"
+      ],
+      "default": "draft"
+    },
+    "featured_on_home": {
+      "type": "boolean",
+      "default": false
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "title",
+    "message",
+    "status"
+  ]
+}
