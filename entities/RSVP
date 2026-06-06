@@ -1,0 +1,86 @@
+{
+  "name": "RSVP",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "ID of the event"
+    },
+    "event_title": {
+      "type": "string",
+      "description": "Event title for display"
+    },
+    "event_date": {
+      "type": "string",
+      "description": "Event date for display"
+    },
+    "event_location": {
+      "type": "string",
+      "description": "Event location for display"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email of user who RSVP'd"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "Guest full name"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Guest phone number"
+    },
+    "email": {
+      "type": "string",
+      "description": "Guest email"
+    },
+    "birthday": {
+      "type": "string",
+      "description": "Birthday for 18+ confirmation"
+    },
+    "instagram_handle": {
+      "type": "string",
+      "description": "Optional Instagram handle"
+    },
+    "is_18_confirmed": {
+      "type": "boolean",
+      "default": false
+    },
+    "understands_paid_entry": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "confirmed",
+        "cancelled",
+        "checked_in",
+        "no_show"
+      ],
+      "default": "confirmed"
+    },
+    "confirmation_code": {
+      "type": "string",
+      "description": "Unique confirmation code e.g. NV-RSVP-XXXX"
+    },
+    "checked_in": {
+      "type": "boolean",
+      "default": false
+    },
+    "check_in_time": {
+      "type": "string",
+      "description": "ISO timestamp of check-in"
+    }
+  },
+  "required": [
+    "event_id",
+    "event_title",
+    "user_email",
+    "full_name",
+    "phone",
+    "email",
+    "is_18_confirmed",
+    "understands_paid_entry"
+  ]
+}
