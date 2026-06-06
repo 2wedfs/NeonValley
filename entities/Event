@@ -1,0 +1,80 @@
+{
+  "name": "Event",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Event title"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Short subtitle or theme"
+    },
+    "date": {
+      "type": "string",
+      "description": "Display date e.g. SAT, JUN 7"
+    },
+    "time": {
+      "type": "string",
+      "description": "e.g. 10 PM \u2013 4 AM"
+    },
+    "venue": {
+      "type": "string",
+      "description": "Venue name"
+    },
+    "location": {
+      "type": "string",
+      "description": "City, State"
+    },
+    "djs": {
+      "type": "string",
+      "description": "DJ lineup"
+    },
+    "price": {
+      "type": "string",
+      "description": "Ticket price info"
+    },
+    "capacity": {
+      "type": "string",
+      "description": "e.g. 480 / 500"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full event description"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "draft",
+        "hidden"
+      ],
+      "default": "draft"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "tag": {
+      "type": "string",
+      "description": "Label badge e.g. FEATURED, HOT"
+    },
+    "hot": {
+      "type": "boolean",
+      "default": false
+    },
+    "free_rsvp_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether free RSVP is open for this event"
+    },
+    "rsvp_capacity": {
+      "type": "number",
+      "description": "Max RSVPs, 0 = unlimited"
+    }
+  },
+  "required": [
+    "title",
+    "status"
+  ]
+}
