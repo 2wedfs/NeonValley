@@ -1,0 +1,134 @@
+{
+  "name": "UserProfile",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email of the linked user"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "birthday": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "user",
+        "staff",
+        "admin"
+      ],
+      "default": "user"
+    },
+    "staff_role": {
+      "type": "string",
+      "enum": [
+        "none",
+        "staff",
+        "admin"
+      ],
+      "default": "none",
+      "description": "App-level staff role for gate access"
+    },
+    "redeemable_points": {
+      "type": "number",
+      "default": 0,
+      "description": "Points available to spend on rewards. Only decreases on redemption or refund."
+    },
+    "total_lifetime_points": {
+      "type": "number",
+      "default": 0,
+      "description": "Total lifetime points. Controls tier. Only decreases on ticket refund, never on reward redemption."
+    },
+    "points_balance": {
+      "type": "number",
+      "default": 0,
+      "description": "Legacy field kept for compatibility"
+    },
+    "total_points_earned": {
+      "type": "number",
+      "default": 0,
+      "description": "Legacy field kept for compatibility"
+    },
+    "visit_count": {
+      "type": "number",
+      "default": 0
+    },
+    "membership_tier": {
+      "type": "string",
+      "enum": [
+        "Neon Newbie",
+        "Rhythm Rider",
+        "Boogie Boss",
+        "Certified Toe-Tapper"
+      ],
+      "default": "Neon Newbie"
+    },
+    "neon_status": {
+      "type": "string",
+      "default": "Neon Newbie Member"
+    },
+    "selected_theme": {
+      "type": "string",
+      "enum": [
+        "Gamer RGB",
+        "Miami Night",
+        "Alien Tech",
+        "Synthwave"
+      ],
+      "default": "Gamer RGB"
+    },
+    "how_heard_about_us": {
+      "type": "string"
+    },
+    "onboarding_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "member_id": {
+      "type": "string",
+      "description": "Unique NeonValley member ID e.g. NV-4827-AL"
+    },
+    "referral_code": {
+      "type": "string",
+      "description": "User's own 6-char lowercase referral code"
+    },
+    "referred_by_code": {
+      "type": "string",
+      "description": "Code user used when joining"
+    },
+    "referral_used": {
+      "type": "boolean",
+      "default": false
+    },
+    "referral_used_at": {
+      "type": "string",
+      "description": "ISO timestamp when referral was used"
+    },
+    "referral_bonus_received": {
+      "type": "boolean",
+      "default": false
+    },
+    "referral_bonus_given_count": {
+      "type": "number",
+      "default": 0
+    },
+    "qr_code_value": {
+      "type": "string"
+    },
+    "is_18_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "session_checkin_ids": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_email"
+  ]
+}
