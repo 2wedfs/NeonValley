@@ -1,0 +1,70 @@
+{
+  "name": "PointsTransaction",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "earn",
+        "redeem",
+        "ticket_purchase",
+        "ticket_refund",
+        "reward_redemption",
+        "reward_restored",
+        "check_in",
+        "admin_adjustment",
+        "referral_bonus"
+      ]
+    },
+    "points": {
+      "type": "number",
+      "description": "Amount (always positive, type indicates direction)"
+    },
+    "points_change": {
+      "type": "number",
+      "description": "Signed change (+/-)"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reward_name": {
+      "type": "string"
+    },
+    "ticket_id": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "redeemable_points_after": {
+      "type": "number"
+    },
+    "lifetime_points_after": {
+      "type": "number"
+    },
+    "related_ticket_id": {
+      "type": "string"
+    },
+    "related_reward_redemption_id": {
+      "type": "string"
+    },
+    "related_referral_code": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_email",
+    "type",
+    "points",
+    "description"
+  ]
+}
