@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 20% 3%;
+    --foreground: 0 0% 98%;
+    --card: 240 15% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 15% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 171 100% 48%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 300 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 240 10% 10%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 171 100% 48%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 10% 14%;
+    --input: 240 10% 10%;
+    --ring: 171 100% 48%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+    background-color:  #08080C;
+  }
+}
+
+@layer utilities {
+  .font-space {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* === PREMIUM CARD SYSTEM === */
+
+  /* Base glass card — universal */
+  .card-glass {
+    background:  rgba(255, 255, 255, 0.06);
+    border: 1px solid  rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 16px 50px  rgba(0, 0, 0, 0.35);
+  }
+
+  /* Elevated glass — hero cards */
+  .card-glass-elevated {
+    background:  rgba(255, 255, 255, 0.07);
+    border: 1px solid  rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-radius: 24px;
+    box-shadow: 0 24px 70px  rgba(0, 0, 0, 0.5);
+  }
+
+  /* Subtle card — secondary content */
+  .card-subtle {
+    background:  rgba(255, 255, 255, 0.04);
+    border: 1px solid  rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+  }
+
+  /* Legacy aliases for compatibility */
+  .glass-acid { @apply card-glass; }
+  .glass-acid-purple { @apply card-glass; }
+  .glass-acid-strong { @apply card-glass-elevated; }
+
+  /* === BUTTONS === */
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--theme-primary,  #8A2BE2), var(--theme-secondary,  #FF2DAA));
+    color:  #fff;
+    border-radius: 14px;
+    height: 48px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    box-shadow: 0 8px 24px  rgba(0,0,0,0.3);
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-secondary {
+    background:  rgba(255,255,255,0.07);
+    border: 1px solid  rgba(255,255,255,0.14);
+    color:  rgba(255,255,255,0.85);
+    border-radius: 14px;
+    height: 48px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.15s;
+  }
+
+  .btn-secondary:hover { background:  rgba(255,255,255,0.10); }
+
+  /* Legacy compat */
+  .btn-acid-solid { @apply btn-primary; background: linear-gradient(135deg,  #00F5D4,  #8A2BE2) !important; color:  #fff !important; }
+  .btn-acid-cyan { @apply btn-secondary; }
+
+  /* === STATUS BADGES === */
+
+  .badge-active {
+    background:  rgba(34, 197, 94, 0.12);
+    border: 1px solid  rgba(34, 197, 94, 0.28);
+    color:  #4ade80;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .badge-used {
+    background:  rgba(255,255,255,0.06);
+    border: 1px solid  rgba(255,255,255,0.12);
+    color:  rgba(255,255,255,0.45);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .badge-refunded {
+    background:  rgba(239,68,68,0.1);
+    border: 1px solid  rgba(239,68,68,0.25);
+    color:  #f87171;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* Legacy badge aliases */
+  .badge-green { @apply badge-active; }
+  .badge-cyan {
+    background:  rgba(0, 245, 212, 0.10);
+    border: 1px solid  rgba(0, 245, 212, 0.22);
+    color:  #00F5D4;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  .badge-purple {
+    background:  rgba(138, 43, 226, 0.12);
+    border: 1px solid  rgba(138, 43, 226, 0.28);
+    color:  #a855f7;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* === TICKET CARD === */
+  .ticket-card {
+    background:  rgba(255, 255, 255, 0.06);
+    border: 1px solid  rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 16px 50px  rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+
+  .ticket-divider {
+    position: relative;
+    height: 1px;
+    background:  rgba(255, 255, 255, 0.08);
+  }
+  .ticket-divider::before,
+  .ticket-divider::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background:  #08080C;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid  rgba(255, 255, 255, 0.08);
+  }
+  .ticket-divider::before { left: -9px; }
+  .ticket-divider::after  { right: -9px; }
+
+  /* Legacy ticket-stub */
+  .ticket-stub { @apply ticket-card; }
+  .ticket-stub::before, .ticket-stub::after { display: none; }
+
+  /* === BACKGROUND GLOWS (theme-based) === */
+
+  .bg-glow-purple {
+    background:
+      radial-gradient(circle at top right,  rgba(138,43,226,0.22), transparent 38%),
+      radial-gradient(circle at bottom left,  rgba(255,45,170,0.14), transparent 42%),
+       #08080C;
+  }
+
+  .bg-glow-miami {
+    background:
+      radial-gradient(circle at top,  rgba(255,79,139,0.20), transparent 36%),
+      radial-gradient(circle at bottom,  rgba(0,255,209,0.10), transparent 42%),
+       #08080C;
+  }
+
+  .bg-glow-cyber {
+    background:
+      radial-gradient(circle at top right,  rgba(0,245,255,0.16), transparent 34%),
+      radial-gradient(circle at bottom left,  rgba(0,194,122,0.10), transparent 42%),
+       #08080C;
+  }
+
+  .bg-glow-gold {
+    background:
+      radial-gradient(circle at top right,  rgba(255,215,106,0.18), transparent 34%),
+      radial-gradient(circle at bottom left,  rgba(255,255,255,0.04), transparent 45%),
+       #08080C;
+  }
+
+  /* Default app background */
+  .bg-app { background-color:  #08080C; }
+
+  /* Legacy orbs — kept but toned way down */
+  .orb-cyan {
+    background: radial-gradient(circle,  rgba(0,245,212,0.18), transparent 70%);
+    filter: blur(70px);
+    border-radius: 9999px;
+  }
+
+  .orb-purple {
+    background: radial-gradient(circle,  rgba(138,43,226,0.15), transparent 70%);
+    filter: blur(70px);
+    border-radius: 9999px;
+  }
+
+  .orb-blue {
+    background: radial-gradient(circle,  rgba(0,100,255,0.12), transparent 70%);
+    filter: blur(90px);
+    border-radius: 9999px;
+  }
+
+  /* === GRADIENT BORDER (premium hero cards) === */
+  .gradient-border-subtle {
+    position: relative;
+  }
+  .gradient-border-subtle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg,  rgba(255,255,255,0.18),  rgba(255,255,255,0.04),  rgba(138,43,226,0.3));
+    -webkit-mask: linear-gradient( #fff 0 0) content-box, linear-gradient( #fff 0 0);
+    mask: linear-gradient( #fff 0 0) content-box, linear-gradient( #fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Legacy gradient border */
+  .gradient-border-cyan { @apply gradient-border-subtle; }
+
+  /* === TYPOGRAPHY === */
+
+  .text-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color:  rgba(255,255,255,0.45);
+  }
+
+  .text-muted-white { color:  rgba(255,255,255,0.55); }
+  .text-dim { color:  rgba(255,255,255,0.35); }
+
+  /* Neon text — use sparingly, only for numbers/accent */
+  .neon-text-cyan  { color:  #00F5D4; }
+  .neon-text-green { color:  #4ade80; }
+  .neon-text-purple { color:  #a855f7; }
+
+  /* Legacy glow classes — toned down to no-op or minimal */
+  .neon-glow-cyan  { }
+  .neon-glow-green { }
+
+  /* === PROGRESS BAR === */
+
+  .progress-track {
+    background:  rgba(255,255,255,0.08);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 1s ease;
+  }
+
+  /* === ANIMATIONS === */
+
+  .pulse-neon {
+    animation: subtlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes subtlePulse {
+    0%, 100% { opacity: 0.8; }
+    50%       { opacity: 1; }
+  }
+
+  .scanline { animation: scanDown 2s linear infinite; }
+
+  @keyframes scanDown {
+    0%   { top: 0%; }
+    100% { top: 100%; }
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg,  rgba(255,255,255,0.02) 25%,  rgba(255,255,255,0.06) 50%,  rgba(255,255,255,0.02) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .tab-active-glow { }
+}
