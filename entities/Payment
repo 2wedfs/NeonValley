@@ -1,0 +1,88 @@
+{
+  "name": "Payment",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "ticket_id": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "payment_provider": {
+      "type": "string",
+      "default": "stripe"
+    },
+    "payment_method": {
+      "type": "string",
+      "description": "card, apple_pay, google_pay, at_door"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "succeeded",
+        "failed",
+        "refunded",
+        "cancelled",
+        "free"
+      ],
+      "default": "pending"
+    },
+    "original_amount": {
+      "type": "number"
+    },
+    "discount_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "final_amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "default": "usd"
+    },
+    "points_awarded": {
+      "type": "number",
+      "default": 0
+    },
+    "stripe_payment_intent_id": {
+      "type": "string"
+    },
+    "stripe_checkout_session_id": {
+      "type": "string"
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "webhook_last_event_id": {
+      "type": "string"
+    },
+    "refunded_at": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_email",
+    "ticket_id",
+    "final_amount"
+  ]
+}
