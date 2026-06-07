@@ -35,9 +35,11 @@ import StaffManager from '@/pages/dashboard/StaffManager';
 import DashboardSettings from '@/pages/dashboard/DashboardSettings';
 import StaffRoute from '@/components/StaffRoute';
 import Onboarding from '@/pages/Onboarding';
+import { isDemoMode } from '@/lib/demoMode';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const demoMode = isDemoMode();
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
@@ -73,21 +75,25 @@ const AuthenticatedApp = () => {
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/events" element={<Events />} />
         <Route path="/scan" element={<Scan />} />
+        <Route path="/pass" element={<Scan />} />
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/referral" element={<Referral />} />
+        <Route path="/referrals" element={<Referral />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/my-rsvps" element={<MyRSVPs />} />
         <Route path="/my-tickets" element={<MyTickets />} />
+        <Route path="/tickets" element={<MyTickets />} />
       </Route>
-      <Route element={<StaffRoute />}>
+      <Route element={<StaffRoute demoMode={demoMode} />}>
           <Route path="/staff" element={<StaffScanner />} />
         </Route>
       </Route>
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
-        <Route element={<StaffRoute />}>
+        <Route element={<StaffRoute demoMode={demoMode} />}>
           <Route element={<DashboardLayout user={null} />}>
             <Route path="/dashboard" element={<Overview />} />
             <Route path="/dashboard/events" element={<EventsManager />} />
