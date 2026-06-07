@@ -36,6 +36,7 @@ import DashboardSettings from '@/pages/dashboard/DashboardSettings';
 import StaffRoute from '@/components/StaffRoute';
 import Onboarding from '@/pages/Onboarding';
 import { isDemoMode } from '@/lib/demoMode';
+import DevTestingPanel from '@/components/DevTestingPanel';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
   }
 
   return (
+    <>
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -109,8 +111,12 @@ const AuthenticatedApp = () => {
           </Route>
         </Route>
       </Route>
+      <Route path="/scanner" element={<StaffScanner />} />
+      <Route path="/admin" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
+    <DevTestingPanel />
+    </>
   );
 };
 
