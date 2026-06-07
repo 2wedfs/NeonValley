@@ -76,7 +76,15 @@ export default function MyTickets() {
     setLoading(false);
   }
 
-  useEffect(() => { if (user?.email) loadTickets(); }, [user?.email]);
+  useEffect(() => {
+    if (user?.email) loadTickets();
+    window.addEventListener('neonvalley-demo-change', loadTickets);
+    window.addEventListener('storage', loadTickets);
+    return () => {
+      window.removeEventListener('neonvalley-demo-change', loadTickets);
+      window.removeEventListener('storage', loadTickets);
+    };
+  }, [user?.email]);
 
   async function handleRefund(ticket) {
     if (!isRefundEligible(ticket)) {
