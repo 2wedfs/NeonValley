@@ -49,7 +49,7 @@ export default function Home() {
             Hey, {loading ? '…' : firstName}
           </h1>
           <p className="text-[13px] mt-0.5" style={{ color: ' rgba(255,255,255,0.4)' }}>
-            18+ alcohol-free party experience
+            Your next night starts here.
           </p>
         </div>
         <Link to="/notifications">
@@ -156,10 +156,10 @@ export default function Home() {
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
         className="grid grid-cols-2 gap-3 mb-4 relative z-10">
         {[
-          { to: '/scan',       icon: QrCode,    label: 'Show Pass',   sub: 'Earn points at the door',  color: theme.primary },
-          { to: '/events',     icon: Ticket,    label: 'Free RSVP',   sub: 'Reserve your spot',        color: theme.secondary },
+          { to: '/scan',       icon: QrCode,    label: 'My Pass',   sub: 'Show your pass',  color: theme.primary },
+          { to: '/events',     icon: Ticket,    label: 'Rewards',   sub: 'Unlock perks',        color: theme.secondary },
           { to: '/my-tickets', icon: CreditCard,label: 'My Tickets',  sub: 'View & manage tickets',    color: ' rgba(255,255,255,0.7)' },
-          { to: '/referral',   icon: Users,     label: 'Invite Crew', sub: 'Earn 1,000 pts/referral',  color: ' rgba(255,255,255,0.7)' },
+          { to: '/referral',   icon: Users,     label: 'Referrals', sub: 'Share your code',  color: ' rgba(255,255,255,0.7)' },
         ].map((item) => {
           const Icon = item.icon;
           return (
@@ -219,8 +219,8 @@ export default function Home() {
           <Zap size={16} style={{ color: theme.primary }} />
         </div>
         <div>
-          <p className="text-[14px] font-space font-semibold text-white">100 Party Points per $1 spent</p>
-          <p className="text-[12px] mt-0.5" style={{ color: ' rgba(255,255,255,0.4)' }}>Points are based on what you actually pay at the door.</p>
+          <p className="text-[14px] font-space font-semibold text-white">Earn 100 Party Points per $1 spent</p>
+          <p className="text-[12px] mt-0.5" style={{ color: ' rgba(255,255,255,0.4)' }}>Points are based on what you actually pay.</p>
         </div>
       </motion.div>
 
