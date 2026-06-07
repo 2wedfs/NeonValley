@@ -77,7 +77,15 @@ export default function Rewards() {
     setActiveRedemptions(updated.filter(r => r.status === 'active'));
   }
 
-  useEffect(() => { loadRedemptions(); }, [user?.email]);
+  useEffect(() => {
+    loadRedemptions();
+    window.addEventListener('neonvalley-demo-change', loadRedemptions);
+    window.addEventListener('storage', loadRedemptions);
+    return () => {
+      window.removeEventListener('neonvalley-demo-change', loadRedemptions);
+      window.removeEventListener('storage', loadRedemptions);
+    };
+  }, [user?.email]);
 
   async function handleRedeem(reward) {
     if (redeemable < reward.cost || redeemable <= 0) {
