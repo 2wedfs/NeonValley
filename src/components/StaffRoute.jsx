@@ -4,11 +4,12 @@ import { base44 } from '@/api/base44Client';
 import { isDemoMode, demoProfile, demoUser } from '@/lib/demoMode';
 
 export default function StaffRoute() {
+  const demoMode = isDemoMode();
   const [status, setStatus] = useState('loading'); // 'loading' | 'allowed' | 'denied'
 
   useEffect(() => {
     async function check() {
-      if (isDemoMode()) {
+      if (demoMode) {
         const user = demoUser();
         const profile = demoProfile();
         const allowed = ['staff', 'admin'].includes(user.role) || ['staff', 'admin'].includes(profile.staff_role);
@@ -34,7 +35,7 @@ export default function StaffRoute() {
       }
     }
     check();
-  }, []);
+  }, [demoMode]);
 
   if (status === 'loading') {
     return (
@@ -46,7 +47,7 @@ export default function StaffRoute() {
   }
 
   if (status === 'denied') {
-    return <Navigate to="/" replace />;
+    return <Navigate to={demoMode ? '/?demo=true' : '/'} replace />;
   }
 
   return <Outlet />;
