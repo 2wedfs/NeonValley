@@ -1,5 +1,3 @@
-import { DEFAULT_THEME } from '@/lib/theme';
-
 const isBrowser = typeof window !== 'undefined';
 
 export const DEMO_USER = {
@@ -51,10 +49,9 @@ export function demoUser() {
 }
 
 export function demoProfile(overrides = {}) {
-  return { ...DEMO_PROFILE, selected_theme: DEFAULT_THEME, ...overrides };
+  return { ...DEMO_PROFILE, ...overrides };
 }
 
 export function demoPath(path) {
-  const suffix = path.includes('?') ? '&demo=true' : '?demo=true';
-  return path + suffix;
+  return path + (path.includes('?') ? '&demo=true' : '?demo=true');
 }
