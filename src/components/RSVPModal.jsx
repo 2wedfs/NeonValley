@@ -79,7 +79,7 @@ export default function RSVPModal({ event, userEmail, onClose, onSuccess }) {
           <div className="p-6">
             {/* Header */}
             <div className="mb-5">
-              <p className="text-[10px] font-space uppercase tracking-widest mb-1" style={{ color: ' #00F5FF' }}>Free RSVP</p>
+              <p className="text-[10px] font-space uppercase tracking-widest mb-1" style={{ color: ' #00F5FF' }}>Rewards</p>
               <h2 className="text-xl font-space font-bold text-white">{event.title}</h2>
               {event.date && <p className="text-sm text-white/40 font-inter mt-0.5">{event.date}{event.venue ? ` · ${event.venue}` : ''}</p>}
             </div>
@@ -89,7 +89,7 @@ export default function RSVPModal({ event, userEmail, onClose, onSuccess }) {
               style={{ background: ' rgba(255,16,240,0.07)', border: '1px solid  rgba(255,16,240,0.2)' }}>
               <Zap size={13} style={{ color: ' #FF10F0', marginTop: 2 }} className="flex-shrink-0" />
               <p className="text-xs font-inter leading-relaxed" style={{ color: ' rgba(255,255,255,0.6)' }}>
-                <span className="font-semibold text-white">Free RSVP does not mean free entry.</span> Pay at the door. Show your NeonValley Pass. Earn Party Points.
+                <span className="font-semibold text-white">Rewards does not mean free entry.</span> Pay at the door. Show your NeonValley Pass. Earn Party Points.
               </p>
             </div>
 
@@ -136,7 +136,7 @@ export default function RSVPModal({ event, userEmail, onClose, onSuccess }) {
             <button onClick={handleSubmit} disabled={submitting}
               className="w-full py-3.5 rounded-xl font-space font-bold text-sm transition-all"
               style={{ background: ' #39FF14', color: ' #000', boxShadow: '0 0 20px  rgba(57,255,20,0.4)', opacity: submitting ? 0.7 : 1 }}>
-              {submitting ? 'Confirming…' : 'Confirm Free RSVP'}
+              {submitting ? 'Confirming…' : 'Confirm Rewards'}
             </button>
           </div>
         ) : (
