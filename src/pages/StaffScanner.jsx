@@ -549,7 +549,7 @@ export default function StaffScanner() {
           </div>
         ) : recentCheckins.length === 0 ? (
           <div className="card-subtle rounded-2xl p-8 text-center">
-            <p className="text-[13px] font-inter" style={{ color: ' rgba(255,255,255,0.25)' }}>No check-ins yet.</p>
+            <p className="text-[13px] font-inter" style={{ color: ' rgba(255,255,255,0.25)' }}>No scans yet.</p>
           </div>
         ) : (
           <div className="space-y-2">
