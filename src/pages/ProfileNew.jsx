@@ -249,11 +249,15 @@ export default function Profile() {
                   <p className="text-[12px] font-space font-semibold leading-tight"
                     style={{ color: isSelected ? t.primary : ' rgba(255,255,255,0.75)' }}>{t.name}</p>
                 </div>
-                {isSelected && (
+                {isSelected ? (
                   <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                     style={{ background: t.primary }}>
                     <Check size={11} color=" #000" strokeWidth={3} />
                   </div>
+                ) : (
+                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full" style={{ color: t.primary, background: t.primary + '12', border: '1px solid ' + t.primary + '24' }}>
+                    Apply
+                  </span>
                 )}
               </button>
             );
