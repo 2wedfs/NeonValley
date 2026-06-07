@@ -242,7 +242,7 @@ export default function Events() {
                     <button onClick={() => setRsvpEvent(event)}
                       className="w-full h-12 rounded-[14px] font-space font-semibold text-[15px] flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                       style={{ background: theme.gradient, color: ' #fff', boxShadow: `0 8px 24px ${theme.glow}` }}>
-                      <Ticket size={15} /> Rewards
+                      <Ticket size={15} /> Free RSVP
                     </button>
                   ) : (
                     <div className="w-full h-12 rounded-[14px] text-center flex items-center justify-center text-[14px] font-space"
