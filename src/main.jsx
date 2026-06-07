@@ -2,6 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '@/index.css'
 
+if (window.location.hash.startsWith('#/')) {
+  const base = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(//$/, '');
+  const hashPath = window.location.hash.slice(1);
+  window.history.replaceState({}, document.title, base + hashPath);
+}
+
 function showStartupError(error) {
   console.error('NeonValley startup error', error);
   const root = document.getElementById('root');
