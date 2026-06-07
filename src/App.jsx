@@ -37,6 +37,7 @@ import StaffRoute from '@/components/StaffRoute';
 import Onboarding from '@/pages/Onboarding';
 import { isDemoMode } from '@/lib/demoMode';
 import DevTestingPanel from '@/components/DevTestingPanel';
+import DemoModeBadge from '@/components/DemoModeBadge';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -115,6 +116,7 @@ const AuthenticatedApp = () => {
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
+    <DemoModeBadge />
     <DevTestingPanel />
     </>
   );
