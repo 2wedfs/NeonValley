@@ -104,7 +104,7 @@ export default function MyRSVPs() {
                     <Link to="/scan" className="flex-1">
                       <button className="w-full py-2 rounded-xl text-xs font-space font-bold flex items-center justify-center gap-1"
                         style={{ background: statusColor, color: ' #000', boxShadow: `0 0 10px ${statusColor}40` }}>
-                        <QrCode size={12} /> Show Pass
+                        <QrCode size={12} /> My Pass
                       </button>
                     </Link>
                   </div>
