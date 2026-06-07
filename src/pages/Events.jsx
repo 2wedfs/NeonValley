@@ -22,8 +22,17 @@ export default function Events() {
   const [myTicketEventIds, setMyTicketEventIds] = useState(new Set());
 
   useEffect(() => {
-    base44.entities.Event.filter({ status: 'published' }, '-created_date', 50)
-      .then(setEvents).finally(() => setLoading(false));
+    function loadEvents() {
+      base44.entities.Event.filter({ status: 'published' }, '-created_date', 50)
+        .then(setEvents).finally(() => setLoading(false));
+    }
+    loadEvents();
+    window.addEventListener('neonvalley-demo-change', loadEvents);
+    window.addEventListener('storage', loadEvents);
+    return () => {
+      window.removeEventListener('neonvalley-demo-change', loadEvents);
+      window.removeEventListener('storage', loadEvents);
+    };
   }, []);
 
   useEffect(() => {
