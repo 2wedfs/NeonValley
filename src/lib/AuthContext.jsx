@@ -2,10 +2,12 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { createAxiosClient } from '@base44/sdk/dist/utils/axios-client';
+import { isDemoMode, demoUser } from '@/lib/demoMode';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const demoMode = isDemoMode();
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -19,6 +21,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAppState = async () => {
+    if (demoMode) {
+      setUser(demoUser());
+      setIsAuthenticated(true);
+      setIsLoadingAuth(false);
+      setIsLoadingPublicSettings(false);
+      setAuthError(null);
+      setAuthChecked(true);
+      setAppPublicSettings({ id: 'demo', public_settings: { demo: true } });
+      return;
+    }
+
     try {
       setIsLoadingPublicSettings(true);
       setAuthError(null);
@@ -90,6 +103,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const checkUserAuth = async () => {
+    if (demoMode) {
+      setUser(demoUser());
+      setIsAuthenticated(true);
+      setIsLoadingAuth(false);
+      setAuthChecked(true);
+      setAuthError(null);
+      return;
+    }
+
     try {
       // Now check if the user is authenticated
       setIsLoadingAuth(true);
@@ -115,6 +137,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = (shouldRedirect = true) => {
+    if (demoMode) return;
     setUser(null);
     setIsAuthenticated(false);
     
@@ -128,6 +151,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const navigateToLogin = () => {
+    if (demoMode) return;
     const basePath = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
     window.location.href = basePath + '/login?from_url=' + encodeURIComponent(window.location.href);
   };
@@ -144,7 +168,8 @@ export const AuthProvider = ({ children }) => {
       logout,
       navigateToLogin,
       checkUserAuth,
-      checkAppState
+      checkAppState,
+      demoMode
     }}>
       {children}
     </AuthContext.Provider>
