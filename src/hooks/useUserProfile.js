@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { getTierInfo as getTierInfoFromLib, getMembershipTier, DEFAULT_THEME } from '@/lib/theme';
 import { generateReferralCode } from '@/lib/ticketUtils';
-import { isDemoMode, demoUser, demoProfile, getDemoRole, readDemoStore } from '@/lib/demoMode';
+import { isDemoMode, demoUser, demoProfile, getDemoRole, readDemoStore, writeDemoStore } from '@/lib/demoMode';
 
 // Re-export for backward compatibility
 export { getTierInfo } from '@/lib/theme';
@@ -142,6 +142,10 @@ export function useUserProfile() {
         total_points_earned: newLifetime,
         membership_tier: getMembershipTier(newLifetime),
       };
+      const store = readDemoStore();
+      const idx = store.profiles.findIndex(p => p.user_email === updated.user_email);
+      if (idx >= 0) store.profiles[idx] = updated;
+      writeDemoStore(store);
       setProfile(updated);
       return updated;
     }
@@ -177,6 +181,11 @@ export function useUserProfile() {
       const currentRedeemable = profile.redeemable_points ?? 0;
       if (currentRedeemable < costPoints) return null;
       const updated = { ...profile, redeemable_points: currentRedeemable - costPoints, points_balance: currentRedeemable - costPoints };
+      const store = readDemoStore();
+      const idx = store.profiles.findIndex(p => p.user_email === updated.user_email);
+      if (idx >= 0) store.profiles[idx] = updated;
+      store.pointsTransactions.unshift({ id: 'demo-txn-redeem-' + Date.now(), is_demo: true, user_email: user.email, type: 'reward_redemption', points: costPoints, description: name + ' redeemed', reward_name: name, created_date: new Date().toISOString() });
+      writeDemoStore(store);
       setProfile(updated);
       return updated;
     }
@@ -205,6 +214,10 @@ export function useUserProfile() {
     if (!profile) return;
     if (demoMode) {
       const updated = { ...profile, selected_theme: themeName };
+      const store = readDemoStore();
+      const idx = store.profiles.findIndex(p => p.user_email === updated.user_email);
+      if (idx >= 0) store.profiles[idx] = updated;
+      writeDemoStore(store);
       setProfile(updated);
       return updated;
     }
@@ -217,6 +230,10 @@ export function useUserProfile() {
     if (!profile) return;
     if (demoMode) {
       const updated = { ...profile, selected_theme: selectedTheme || DEFAULT_THEME, how_heard_about_us: howHeard || '', onboarding_completed: true };
+      const store = readDemoStore();
+      const idx = store.profiles.findIndex(p => p.user_email === updated.user_email);
+      if (idx >= 0) store.profiles[idx] = updated;
+      writeDemoStore(store);
       setProfile(updated);
       return updated;
     }
