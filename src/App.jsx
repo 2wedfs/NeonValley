@@ -92,12 +92,14 @@ const AuthenticatedApp = () => {
       </Route>
       <Route element={<StaffRoute demoMode={demoMode} />}>
           <Route path="/staff" element={<StaffScanner />} />
+          <Route path="/scanner" element={<StaffScanner />} />
         </Route>
       </Route>
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route element={<StaffRoute demoMode={demoMode} />}>
           <Route element={<DashboardLayout user={null} />}>
             <Route path="/dashboard" element={<Overview />} />
+            <Route path="/admin" element={<Overview />} />
             <Route path="/dashboard/events" element={<EventsManager />} />
             <Route path="/dashboard/rewards" element={<RewardsManager />} />
             <Route path="/dashboard/announcements" element={<AnnouncementsManager />} />
@@ -111,8 +113,6 @@ const AuthenticatedApp = () => {
           </Route>
         </Route>
       </Route>
-      <Route path="/scanner" element={<StaffScanner />} />
-      <Route path="/admin" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
     <DevTestingPanel />
