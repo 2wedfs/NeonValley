@@ -66,7 +66,7 @@ export default function Events() {
           <div>
             <p className="text-label mb-1">NEONVALLEY</p>
             <h1 className="text-[26px] font-space font-bold text-white tracking-tight">Events</h1>
-            <p className="text-[13px] mt-0.5" style={{ color: ' rgba(255,255,255,0.4)' }}>Bay Area's hottest 18+ nights</p>
+            <p className="text-[13px] mt-0.5" style={{ color: ' rgba(255,255,255,0.4)' }}>Premium 18+ alcohol-free drops</p>
           </div>
           <div className="flex flex-col gap-1.5 items-end">
             <Link to="/my-rsvps">
@@ -203,7 +203,7 @@ export default function Events() {
                     <div className="flex items-center justify-between mb-2">
                       <div>
                         <p className="text-[14px] font-space font-semibold text-white">App RSVP Ticket</p>
-                        <p className="text-[12px] mt-0.5" style={{ color: ' rgba(255,255,255,0.4)' }}>Pay now · Show at the door</p>
+                        <p className="text-[12px] mt-0.5" style={{ color: ' rgba(255,255,255,0.4)' }}>Your RSVP is free. Pay now or pay at the door.</p>
                       </div>
                       <p className="text-[26px] font-space font-bold text-white">$10</p>
                     </div>
@@ -242,7 +242,7 @@ export default function Events() {
                     <button onClick={() => setRsvpEvent(event)}
                       className="w-full h-12 rounded-[14px] font-space font-semibold text-[15px] flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                       style={{ background: theme.gradient, color: ' #fff', boxShadow: `0 8px 24px ${theme.glow}` }}>
-                      <Ticket size={15} /> Free RSVP
+                      <Ticket size={15} /> Rewards
                     </button>
                   ) : (
                     <div className="w-full h-12 rounded-[14px] text-center flex items-center justify-center text-[14px] font-space"
