@@ -1,6 +1,6 @@
 import { createClient } from '@base44/sdk';
 import { appParams } from '@/lib/app-params';
-import { isDemoMode, demoUser, demoProfile } from '@/lib/demoMode';
+import { isDemoMode, demoUser, readDemoStore, writeDemoStore } from '@/lib/demoMode';
 
 const { appId, token, functionsVersion, appBaseUrl } = appParams;
 const isGitHubPagesPreview = typeof window !== 'undefined' && window.location.hostname.endsWith('github.io');
@@ -14,122 +14,104 @@ const realClient = createClient({
   appBaseUrl
 });
 
-const demoEvents = [
-  {
-    id: 'demo-event-1',
-    title: 'Midnight Eclipse: Rooftop Sessions',
-    event_title: 'Midnight Eclipse: Rooftop Sessions',
-    date: '2026-07-18',
-    time: '9:00 PM',
-    venue: 'The Valencia Loft',
-    location: 'San Francisco, CA',
-    theme: 'Midnight Eclipse',
-    djs: 'DJ Solara, Mina V',
-    description: 'A premium 18+ alcohol-free night with house, amapiano, and club edits.',
-    image_url: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80',
-    featured: true,
-    status: 'published',
-    free_rsvp_enabled: true,
-    ticket_price: 10,
-    event_start_time: '2026-07-18T21:00:00.000Z',
-  },
-  {
-    id: 'demo-event-2',
-    title: 'Miami Sunset Social',
-    event_title: 'Miami Sunset Social',
-    date: '2026-08-01',
-    time: '8:30 PM',
-    venue: 'Mission Sound Room',
-    location: 'San Francisco, CA',
-    theme: 'Miami Sunset',
-    djs: 'Nia Rose, Coastline',
-    description: 'Warm lights, tropical edits, and a social dance-floor energy.',
-    image_url: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80',
-    featured: false,
-    status: 'published',
-    free_rsvp_enabled: true,
-    ticket_price: 12,
-    event_start_time: '2026-08-01T20:30:00.000Z',
-  },
-];
+const STORE_KEYS = {
+  Event: 'events',
+  Ticket: 'tickets',
+  RSVP: 'rsvps',
+  UserProfile: 'profiles',
+  PointsTransaction: 'pointsTransactions',
+  RewardRedemption: 'rewardRedemptions',
+  Payment: 'payments',
+  PromoCode: 'promoCodes',
+  CheckIn: 'checkIns',
+  Referral: 'referrals',
+  Reward: 'rewards',
+  Announcement: 'announcements',
+  Notification: 'notifications',
+};
 
-const demoTickets = [
-  {
-    id: 'demo-ticket-1',
-    event_id: 'demo-event-1',
-    event_name: 'Midnight Eclipse: Rooftop Sessions',
-    user_email: 'demo@neonvalley.app',
-    ticket_status: 'active',
-    payment_status: 'paid',
-    final_amount_paid: 10,
-    points_awarded: 1000,
-    ticket_barcode: 'NV-DEMO-TICKET-001',
-    event_start_time: '2026-07-18T21:00:00.000Z',
-    created_date: '2026-06-01T00:00:00.000Z',
-  },
-];
+function storeKey(name) {
+  return STORE_KEYS[name] || (name.charAt(0).toLowerCase() + name.slice(1) + 's');
+}
 
-const demoRsvps = [
-  {
-    id: 'demo-rsvp-1',
-    event_id: 'demo-event-1',
-    event_title: 'Midnight Eclipse: Rooftop Sessions',
-    user_email: 'demo@neonvalley.app',
-    status: 'confirmed',
-    created_date: '2026-06-01T00:00:00.000Z',
-  },
-];
-
-const demoTransactions = [
-  { id: 'demo-txn-1', user_email: 'demo@neonvalley.app', type: 'ticket_purchase', points: 1000, description: 'Earn 100 Party Points per $1 spent.', created_date: '2026-06-01T00:00:00.000Z' },
-  { id: 'demo-txn-2', user_email: 'demo@neonvalley.app', type: 'referral_bonus', points: 1000, description: 'Referral bonus from a7k29z', created_date: '2026-05-28T00:00:00.000Z' },
-];
-
-const demoRedemptions = [];
-
-function entityList(name) {
-  const data = {
-    Event: demoEvents,
-    Ticket: demoTickets,
-    RSVP: demoRsvps,
-    UserProfile: [demoProfile()],
-    PointsTransaction: demoTransactions,
-    RewardRedemption: demoRedemptions,
-  };
-  return data[name] || [];
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
 }
 
 function matchesFilter(item, filter = {}) {
-  return Object.entries(filter || {}).every(([key, value]) => item[key] === value);
+  return Object.entries(filter || {}).every(([key, value]) => {
+    if (value == null) return item[key] == null;
+    return item[key] === value;
+  });
+}
+
+function sortRows(rows, sort) {
+  if (!sort || typeof sort !== 'string') return rows;
+  const desc = sort.startsWith('-');
+  const key = desc ? sort.slice(1) : sort;
+  return [...rows].sort((a, b) => {
+    const av = a[key] || '';
+    const bv = b[key] || '';
+    if (av === bv) return 0;
+    return (av > bv ? 1 : -1) * (desc ? -1 : 1);
+  });
+}
+
+function entityRows(name, store) {
+  const key = storeKey(name);
+  if (!Array.isArray(store[key])) store[key] = [];
+  return store[key];
 }
 
 function demoEntity(name) {
   return {
-    async list() {
-      return entityList(name);
+    async list(sort, limit) {
+      const store = readDemoStore();
+      let rows = sortRows(entityRows(name, store), sort);
+      if (limit) rows = rows.slice(0, limit);
+      return clone(rows);
     },
-    async filter(filter = {}) {
-      return entityList(name).filter(item => matchesFilter(item, filter));
+    async filter(filter = {}, sort, limit) {
+      const store = readDemoStore();
+      let rows = entityRows(name, store).filter(item => matchesFilter(item, filter));
+      rows = sortRows(rows, sort);
+      if (limit) rows = rows.slice(0, limit);
+      return clone(rows);
     },
     async create(payload = {}) {
-      const created = { id: 'demo-' + name.toLowerCase() + '-' + Date.now(), created_date: new Date().toISOString(), ...payload };
-      entityList(name).unshift(created);
-      return created;
+      const store = readDemoStore();
+      const rows = entityRows(name, store);
+      const created = {
+        id: payload.id || 'demo-' + name.toLowerCase() + '-' + Date.now(),
+        is_demo: true,
+        created_date: payload.created_date || new Date().toISOString(),
+        ...payload,
+      };
+      rows.unshift(created);
+      writeDemoStore(store);
+      return clone(created);
     },
     async update(id, payload = {}) {
-      const list = entityList(name);
-      const index = list.findIndex(item => item.id === id);
+      const store = readDemoStore();
+      const rows = entityRows(name, store);
+      const index = rows.findIndex(item => item.id === id);
       if (index >= 0) {
-        list[index] = { ...list[index], ...payload };
-        return list[index];
+        rows[index] = { ...rows[index], ...payload, is_demo: true };
+        writeDemoStore(store);
+        return clone(rows[index]);
       }
-      return { id, ...payload };
+      const created = { id, is_demo: true, created_date: new Date().toISOString(), ...payload };
+      rows.unshift(created);
+      writeDemoStore(store);
+      return clone(created);
     },
     async delete(id) {
-      const list = entityList(name);
-      const index = list.findIndex(item => item.id === id);
-      if (index >= 0) list.splice(index, 1);
-      return { id, deleted: true };
+      const store = readDemoStore();
+      const rows = entityRows(name, store);
+      const index = rows.findIndex(item => item.id === id);
+      if (index >= 0) rows.splice(index, 1);
+      writeDemoStore(store);
+      return { id, deleted: true, is_demo: true };
     },
   };
 }
@@ -141,8 +123,8 @@ function demoClient() {
       async isAuthenticated() { return true; },
       async loginViaEmailPassword() { return demoUser(); },
       async loginWithProvider() { return demoUser(); },
-      async resetPassword() { return { ok: true }; },
-      async requestPasswordReset() { return { ok: true }; },
+      async resetPassword() { return { ok: true, is_demo: true }; },
+      async requestPasswordReset() { return { ok: true, is_demo: true }; },
       logout() {},
       redirectToLogin() {},
     },
