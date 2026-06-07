@@ -157,7 +157,7 @@ export default function Home() {
         className="grid grid-cols-2 gap-3 mb-4 relative z-10">
         {[
           { to: '/scan',       icon: QrCode,    label: 'My Pass',   sub: 'Show your pass',  color: theme.primary },
-          { to: '/events',     icon: Ticket,    label: 'Rewards',   sub: 'Unlock perks',        color: theme.secondary },
+          { to: '/rewards',    icon: Star,      label: 'Rewards',   sub: 'Unlock perks',        color: theme.secondary },
           { to: '/my-tickets', icon: CreditCard,label: 'My Tickets',  sub: 'View & manage tickets',    color: ' rgba(255,255,255,0.7)' },
           { to: '/referral',   icon: Users,     label: 'Referrals', sub: 'Share your code',  color: ' rgba(255,255,255,0.7)' },
         ].map((item) => {
