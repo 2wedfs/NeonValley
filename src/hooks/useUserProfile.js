@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { getTierInfo as getTierInfoFromLib, getMembershipTier, DEFAULT_THEME } from '@/lib/theme';
 import { generateReferralCode } from '@/lib/ticketUtils';
-import { isDemoMode, demoUser, demoProfile } from '@/lib/demoMode';
+import { isDemoMode, demoUser, demoProfile, getDemoRole, readDemoStore } from '@/lib/demoMode';
 
 // Re-export for backward compatibility
 export { getTierInfo } from '@/lib/theme';
@@ -13,6 +13,7 @@ export function getNeonStatus(totalLifetimePoints) {
 
 export function useUserProfile() {
   const demoMode = isDemoMode();
+  const [demoVersion, setDemoVersion] = useState(0);
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,8 +22,12 @@ export function useUserProfile() {
     let cancelled = false;
     async function load() {
       if (demoMode) {
-        setUser(demoUser());
-        setProfile(demoProfile());
+        const role = getDemoRole();
+        const store = readDemoStore();
+        const demoAccount = demoUser(role);
+        const storedProfile = store.profiles?.find(p => p.user_email === demoAccount.email);
+        setUser(demoAccount);
+        setProfile(storedProfile || demoProfile({}, role));
         setLoading(false);
         return;
       }
@@ -110,6 +115,17 @@ export function useUserProfile() {
     }
     load();
     return () => { cancelled = true; };
+  }, [demoMode, demoVersion]);
+
+  useEffect(() => {
+    if (!demoMode) return;
+    const refresh = () => setDemoVersion(v => v + 1);
+    window.addEventListener('neonvalley-demo-change', refresh);
+    window.addEventListener('storage', refresh);
+    return () => {
+      window.removeEventListener('neonvalley-demo-change', refresh);
+      window.removeEventListener('storage', refresh);
+    };
   }, [demoMode]);
 
   // Award points: adds to both total_lifetime_points and redeemable_points
