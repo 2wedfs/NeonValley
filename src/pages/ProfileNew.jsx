@@ -80,6 +80,23 @@ export default function Profile() {
     ]).then(([txns, reds]) => { setPointsHistory(txns); setRedemptions(reds); setHistoryLoaded(true); });
   }, [user?.email]);
 
+  useEffect(() => {
+    const refreshHistory = () => {
+      if (!user?.email) return;
+      setHistoryLoaded(false);
+      Promise.all([
+        base44.entities.PointsTransaction.filter({ user_email: user.email }, '-created_date', 30),
+        base44.entities.RewardRedemption.filter({ user_email: user.email }, '-created_date', 30),
+      ]).then(([txns, reds]) => { setPointsHistory(txns); setRedemptions(reds); setHistoryLoaded(true); });
+    };
+    window.addEventListener('neonvalley-demo-change', refreshHistory);
+    window.addEventListener('storage', refreshHistory);
+    return () => {
+      window.removeEventListener('neonvalley-demo-change', refreshHistory);
+      window.removeEventListener('storage', refreshHistory);
+    };
+  }, [user?.email]);
+
   async function handleThemeSelect(name) {
     setSelectedTheme(name);
     setSavingTheme(true);
