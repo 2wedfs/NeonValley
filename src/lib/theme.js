@@ -1,110 +1,85 @@
-// NeonValley Color Theme System — Premium Nightlife Edition
+// NeonValley Color Theme System - Professional Club Edition
 
 export const THEMES = {
-  'Midnight Purple': {
-    name: 'Midnight Purple',
-    primary: '#8A2BE2',
-    secondary: '#FF2DAA',
-    primaryLabel: 'Violet',
-    secondaryLabel: 'Magenta',
-    gradient: 'linear-gradient(135deg, #8A2BE2, #FF2DAA)',
-    glow: 'rgba(138,43,226,0.45)',
-    glowSecondary: 'rgba(255,45,170,0.35)',
-    bgGlow: 'radial-gradient(circle at top right, rgba(138,43,226,0.22), transparent 38%), radial-gradient(circle at bottom left, rgba(255,45,170,0.14), transparent 42%)',
+  'Midnight Eclipse': {
+    name: 'Midnight Eclipse',
+    primary: '#9D4EDD',
+    secondary: '#F72585',
+    base: '#050509',
+    surface: '#100A1D',
+    primaryLabel: 'Electric Violet',
+    secondaryLabel: 'Soft Pink',
+    gradient: 'linear-gradient(135deg, #3A0CA3 0%, #9D4EDD 48%, #F72585 100%)',
+    glow: 'rgba(157, 78, 221, 0.28)',
+    glowSecondary: 'rgba(247, 37, 133, 0.18)',
+    bgGlow: 'radial-gradient(circle at 78% 0%, rgba(58,12,163,0.32), transparent 34%), radial-gradient(circle at 18% 14%, rgba(247,37,133,0.14), transparent 30%), linear-gradient(180deg, #050509 0%, #0B0714 52%, #050509 100%)',
   },
   'Miami Sunset': {
     name: 'Miami Sunset',
     primary: '#FF4F8B',
-    secondary: '#00FFD1',
-    primaryLabel: 'Coral',
-    secondaryLabel: 'Aqua',
-    gradient: 'linear-gradient(135deg, #FF4F8B, #00FFD1)',
-    glow: 'rgba(255,79,139,0.45)',
-    glowSecondary: 'rgba(0,255,209,0.35)',
-    bgGlow: 'radial-gradient(circle at top, rgba(255,79,139,0.20), transparent 36%), radial-gradient(circle at bottom, rgba(0,255,209,0.10), transparent 42%)',
+    secondary: '#FF7A45',
+    accent: '#00FFD1',
+    base: '#120711',
+    surface: '#1A0B17',
+    primaryLabel: 'Hot Coral',
+    secondaryLabel: 'Sunset Orange',
+    gradient: 'linear-gradient(135deg, #FF4F8B 0%, #FF7A45 68%, #00FFD1 130%)',
+    glow: 'rgba(255,79,139,0.24)',
+    glowSecondary: 'rgba(255,122,69,0.18)',
+    bgGlow: 'radial-gradient(circle at 20% 0%, rgba(255,79,139,0.24), transparent 34%), radial-gradient(circle at 90% 20%, rgba(0,255,209,0.10), transparent 30%), linear-gradient(180deg, #120711 0%, #090509 100%)',
   },
   'Cyber Noir': {
     name: 'Cyber Noir',
-    primary: '#00F5FF',
-    secondary: '#00C27A',
-    primaryLabel: 'Electric Blue',
-    secondaryLabel: 'Emerald',
-    gradient: 'linear-gradient(135deg, #00F5FF, #00C27A)',
-    glow: 'rgba(0,245,255,0.40)',
-    glowSecondary: 'rgba(0,194,122,0.35)',
-    bgGlow: 'radial-gradient(circle at top right, rgba(0,245,255,0.16), transparent 34%), radial-gradient(circle at bottom left, rgba(0,194,122,0.10), transparent 42%)',
+    primary: '#00E5FF',
+    secondary: '#0099FF',
+    base: '#03070A',
+    surface: '#06151A',
+    primaryLabel: 'Cyan Accent',
+    secondaryLabel: 'Electric Blue',
+    gradient: 'linear-gradient(135deg, #003B46 0%, #00E5FF 54%, #0099FF 100%)',
+    glow: 'rgba(0,229,255,0.22)',
+    glowSecondary: 'rgba(0,153,255,0.16)',
+    bgGlow: 'radial-gradient(circle at 85% 0%, rgba(0,59,70,0.48), transparent 36%), radial-gradient(circle at 12% 28%, rgba(0,153,255,0.12), transparent 34%), linear-gradient(180deg, #03070A 0%, #041016 100%)',
   },
   'Black Gold': {
     name: 'Black Gold',
-    primary: '#FFD76A',
-    secondary: '#FFFFFF',
-    primaryLabel: 'Gold',
-    secondaryLabel: 'White',
-    gradient: 'linear-gradient(135deg, #FFD76A, #fff)',
-    glow: 'rgba(255,215,106,0.40)',
-    glowSecondary: 'rgba(255,255,255,0.20)',
-    bgGlow: 'radial-gradient(circle at top right,  rgba(255,215,106,0.18), transparent 34%), radial-gradient(circle at bottom left,  rgba(255,255,255,0.04), transparent 45%)',
+    primary: '#FFD166',
+    secondary: '#FFF1B8',
+    base: '#030303',
+    surface: '#111111',
+    primaryLabel: 'Gold Accent',
+    secondaryLabel: 'Champagne',
+    gradient: 'linear-gradient(135deg, #6F5520 0%, #FFD166 58%, #FFF1B8 100%)',
+    glow: 'rgba(255,209,102,0.20)',
+    glowSecondary: 'rgba(255,241,184,0.10)',
+    bgGlow: 'radial-gradient(circle at 82% 0%, rgba(255,209,102,0.16), transparent 34%), radial-gradient(circle at 18% 20%, rgba(255,241,184,0.07), transparent 30%), linear-gradient(180deg, #030303 0%, #101010 100%)',
   },
-  // Legacy theme names mapped to new ones for backward compat
-  'Gamer RGB': {
-    name: 'Gamer RGB',
-    primary: ' #8A2BE2',
-    secondary: ' #FF2DAA',
-    primaryLabel: 'Violet',
-    secondaryLabel: 'Magenta',
-    gradient: 'linear-gradient(135deg,  #8A2BE2,  #FF2DAA)',
-    glow: ' rgba(138,43,226,0.45)',
-    glowSecondary: ' rgba(255,45,170,0.35)',
-    bgGlow: 'radial-gradient(circle at top right,  rgba(138,43,226,0.22), transparent 38%), radial-gradient(circle at bottom left,  rgba(255,45,170,0.14), transparent 42%)',
-  },
-  'Miami Night': {
-    name: 'Miami Night',
-    primary: ' #FF4F8B',
-    secondary: ' #00FFD1',
-    primaryLabel: 'Coral',
-    secondaryLabel: 'Aqua',
-    gradient: 'linear-gradient(135deg,  #FF4F8B,  #00FFD1)',
-    glow: ' rgba(255,79,139,0.45)',
-    glowSecondary: ' rgba(0,255,209,0.35)',
-    bgGlow: 'radial-gradient(circle at top,  rgba(255,79,139,0.20), transparent 36%), radial-gradient(circle at bottom,  rgba(0,255,209,0.10), transparent 42%)',
-  },
-  'Alien Tech': {
-    name: 'Alien Tech',
-    primary: ' #00F5FF',
-    secondary: ' #00C27A',
-    primaryLabel: 'Electric Blue',
-    secondaryLabel: 'Emerald',
-    gradient: 'linear-gradient(135deg,  #00F5FF,  #00C27A)',
-    glow: ' rgba(0,245,255,0.40)',
-    glowSecondary: ' rgba(0,194,122,0.35)',
-    bgGlow: 'radial-gradient(circle at top right,  rgba(0,245,255,0.16), transparent 34%), radial-gradient(circle at bottom left,  rgba(0,194,122,0.10), transparent 42%)',
-  },
-  'Synthwave': {
-    name: 'Synthwave',
-    primary: ' #FF4F8B',
-    secondary: ' #8A2BE2',
-    primaryLabel: 'Pink',
-    secondaryLabel: 'Purple',
-    gradient: 'linear-gradient(135deg,  #FF4F8B,  #8A2BE2)',
-    glow: ' rgba(255,79,139,0.40)',
-    glowSecondary: ' rgba(138,43,226,0.35)',
-    bgGlow: 'radial-gradient(circle at top,  rgba(255,79,139,0.18), transparent 36%), radial-gradient(circle at bottom,  rgba(138,43,226,0.14), transparent 42%)',
-  },
+  // Legacy names kept so existing saved profiles continue to work.
+  'Midnight Purple': null,
+  'Gamer RGB': null,
+  'Miami Night': null,
+  'Alien Tech': null,
+  'Synthwave': null,
 };
 
-export const DISPLAY_THEMES = ['Midnight Purple', 'Miami Sunset', 'Cyber Noir', 'Black Gold'];
+THEMES['Midnight Purple'] = THEMES['Midnight Eclipse'];
+THEMES['Gamer RGB'] = THEMES['Midnight Eclipse'];
+THEMES['Miami Night'] = THEMES['Miami Sunset'];
+THEMES['Alien Tech'] = THEMES['Cyber Noir'];
+THEMES['Synthwave'] = THEMES['Miami Sunset'];
 
-export const DEFAULT_THEME = 'Midnight Purple';
+export const DISPLAY_THEMES = ['Midnight Eclipse', 'Miami Sunset', 'Cyber Noir', 'Black Gold'];
+export const DEFAULT_THEME = 'Midnight Eclipse';
 
 export function getTheme(name) {
   return THEMES[name] || THEMES[DEFAULT_THEME];
 }
 
 export const TIER_THRESHOLDS = [
-  { name: 'Neon Newbie',           floor: 0,      nextPts: 10000,  next: 'Rhythm Rider',         color: ' rgba(255,255,255,0.55)', glow: ' rgba(255,255,255,0.2)' },
-  { name: 'Rhythm Rider',          floor: 10000,  nextPts: 100000, next: 'Boogie Boss',           color: ' #00E5FF', glow: ' rgba(0,229,255,0.3)' },
-  { name: 'Boogie Boss',           floor: 100000, nextPts: 500000, next: 'Certified Toe-Tapper',  color: ' #FFD76A', glow: ' rgba(255,215,106,0.3)' },
-  { name: 'Certified Toe-Tapper',  floor: 500000, nextPts: null,   next: null,                   color: ' #a855f7', glow: ' rgba(168,85,247,0.3)' },
+  { name: 'Neon Newbie', floor: 0, nextPts: 10000, next: 'Rhythm Rider', color: 'rgba(255,255,255,0.62)', glow: 'rgba(255,255,255,0.12)' },
+  { name: 'Rhythm Rider', floor: 10000, nextPts: 100000, next: 'Boogie Boss', color: '#00E5FF', glow: 'rgba(0,229,255,0.18)' },
+  { name: 'Boogie Boss', floor: 100000, nextPts: 500000, next: 'Certified Toe-Tapper', color: '#FFD166', glow: 'rgba(255,209,102,0.18)' },
+  { name: 'Certified Toe-Tapper', floor: 500000, nextPts: null, next: null, color: '#F72585', glow: 'rgba(247,37,133,0.18)' },
 ];
 
 export function getTierInfo(totalLifetimePoints) {
