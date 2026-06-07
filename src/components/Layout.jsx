@@ -2,7 +2,6 @@ import { Link, useLocation, Outlet } from 'react-router-dom';
 import { Home, Calendar, Ticket, Gift, User } from 'lucide-react';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { getTheme } from '@/lib/theme';
-import { isDemoMode, getDemoRole } from '@/lib/demoMode';
 
 const tabs = [
   { path: '/', icon: Home, label: 'Home', exact: true },
@@ -16,8 +15,6 @@ export default function Layout() {
   const location = useLocation();
   const { profile } = useUserProfile();
   const theme = getTheme(profile?.selected_theme);
-  const demoMode = isDemoMode();
-  const demoRole = getDemoRole();
 
   const isActive = (tab) => tab.exact
     ? location.pathname === tab.path
@@ -34,11 +31,6 @@ export default function Layout() {
       }}
     >
       <div className="club-vignette" />
-      {demoMode && (
-        <div className="fixed top-4 right-4 z-[60] rounded-full px-3 py-1 text-[11px] font-bold text-white" style={{ background: theme.primary, boxShadow: '0 10px 30px rgba(0,0,0,0.35)' }}>
-          Demo Mode · {demoRole.charAt(0).toUpperCase() + demoRole.slice(1)} View
-        </div>
-      )}
       <main className="relative z-10 min-h-screen pb-28">
         <Outlet />
       </main>
