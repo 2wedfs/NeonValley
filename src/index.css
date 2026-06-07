@@ -12,19 +12,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 15% 6%;
     --popover-foreground: 0 0% 98%;
-    --primary: 171 100% 48%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 300 100% 50%;
-    --secondary-foreground: 0 0% 0%;
+    --primary: 271 70% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 336 93% 56%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 240 10% 10%;
     --muted-foreground: 0 0% 55%;
-    --accent: 171 100% 48%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 271 70% 58%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 10% 14%;
     --input: 240 10% 10%;
-    --ring: 171 100% 48%;
+    --ring: 271 70% 58%;
     --radius: 0.75rem;
   }
 }
@@ -508,5 +508,20 @@
     padding: 5px 10px;
     font-size: 11px;
     font-weight: 700;
+  }
+}
+
+
+@layer components {
+  .bg-primary {
+    background: linear-gradient(135deg, #3A0CA3, #9D4EDD 48%, #F72585) !important;
+  }
+
+  .text-primary {
+    color: #9D4EDD !important;
+  }
+
+  .border-primary {
+    border-color: rgba(157,78,221,0.45) !important;
   }
 }
