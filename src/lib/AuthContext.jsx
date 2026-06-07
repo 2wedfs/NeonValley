@@ -2,12 +2,13 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 import { createAxiosClient } from '@base44/sdk/dist/utils/axios-client';
-import { isDemoMode, demoUser } from '@/lib/demoMode';
+import { isDemoMode, demoUser, getDemoRole } from '@/lib/demoMode';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const demoMode = isDemoMode();
+  const [demoRole, setDemoRoleState] = useState(getDemoRole());
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
@@ -18,7 +19,20 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkAppState();
-  }, []);
+    if (!demoMode) return;
+    const onDemoChange = () => {
+      setDemoRoleState(getDemoRole());
+      setUser(demoUser());
+      setIsAuthenticated(true);
+      setAuthError(null);
+    };
+    window.addEventListener('neonvalley-demo-change', onDemoChange);
+    window.addEventListener('storage', onDemoChange);
+    return () => {
+      window.removeEventListener('neonvalley-demo-change', onDemoChange);
+      window.removeEventListener('storage', onDemoChange);
+    };
+  }, [demoMode, demoRole]);
 
   const checkAppState = async () => {
     if (demoMode) {
@@ -169,7 +183,8 @@ export const AuthProvider = ({ children }) => {
       navigateToLogin,
       checkUserAuth,
       checkAppState,
-      demoMode
+      demoMode,
+      demoRole
     }}>
       {children}
     </AuthContext.Provider>
