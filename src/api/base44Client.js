@@ -136,15 +136,17 @@ function demoEntity(name) {
 
 function demoClient() {
   return {
-    ...realClient,
     auth: {
-      ...realClient.auth,
       async me() { return demoUser(); },
       async isAuthenticated() { return true; },
+      async loginViaEmailPassword() { return demoUser(); },
+      async loginWithProvider() { return demoUser(); },
+      async resetPassword() { return { ok: true }; },
+      async requestPasswordReset() { return { ok: true }; },
       logout() {},
       redirectToLogin() {},
     },
-    entities: new Proxy(realClient.entities || {}, {
+    entities: new Proxy({}, {
       get(target, prop) {
         if (typeof prop === 'string') return demoEntity(prop);
         return target[prop];
