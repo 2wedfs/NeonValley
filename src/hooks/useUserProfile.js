@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { getTierInfo as getTierInfoFromLib, getMembershipTier, DEFAULT_THEME } from '@/lib/theme';
 import { generateReferralCode } from '@/lib/ticketUtils';
+import { isDemoMode, demoUser, demoProfile } from '@/lib/demoMode';
 
 // Re-export for backward compatibility
 export { getTierInfo } from '@/lib/theme';
@@ -11,6 +12,7 @@ export function getNeonStatus(totalLifetimePoints) {
 }
 
 export function useUserProfile() {
+  const demoMode = isDemoMode();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,6 +20,13 @@ export function useUserProfile() {
   useEffect(() => {
     let cancelled = false;
     async function load() {
+      if (demoMode) {
+        setUser(demoUser());
+        setProfile(demoProfile());
+        setLoading(false);
+        return;
+      }
+
       try {
         const me = await base44.auth.me();
         if (cancelled) return;
@@ -101,11 +110,25 @@ export function useUserProfile() {
     }
     load();
     return () => { cancelled = true; };
-  }, []);
+  }, [demoMode]);
 
   // Award points: adds to both total_lifetime_points and redeemable_points
   async function addPoints(points, description, txnType = 'earn') {
     if (!profile || !user) return;
+    if (demoMode) {
+      const newRedeemable = (profile.redeemable_points ?? 0) + points;
+      const newLifetime = (profile.total_lifetime_points ?? 0) + points;
+      const updated = {
+        ...profile,
+        redeemable_points: newRedeemable,
+        points_balance: newRedeemable,
+        total_lifetime_points: newLifetime,
+        total_points_earned: newLifetime,
+        membership_tier: getMembershipTier(newLifetime),
+      };
+      setProfile(updated);
+      return updated;
+    }
     const newRedeemable = (profile.redeemable_points ?? 0) + points;
     const newLifetime = (profile.total_lifetime_points ?? 0) + points;
     const newVisits = (profile.visit_count || 0) + 1;
@@ -134,6 +157,13 @@ export function useUserProfile() {
   // Redeem reward: only subtracts from redeemable_points, NEVER from total_lifetime_points
   async function redeemReward({ name, costPoints }) {
     if (!profile || !user) return null;
+    if (demoMode) {
+      const currentRedeemable = profile.redeemable_points ?? 0;
+      if (currentRedeemable < costPoints) return null;
+      const updated = { ...profile, redeemable_points: currentRedeemable - costPoints, points_balance: currentRedeemable - costPoints };
+      setProfile(updated);
+      return updated;
+    }
     const currentRedeemable = profile.redeemable_points ?? 0;
     if (currentRedeemable < costPoints) return null;
     const newRedeemable = currentRedeemable - costPoints;
@@ -157,6 +187,11 @@ export function useUserProfile() {
 
   async function updateTheme(themeName) {
     if (!profile) return;
+    if (demoMode) {
+      const updated = { ...profile, selected_theme: themeName };
+      setProfile(updated);
+      return updated;
+    }
     const updated = await base44.entities.UserProfile.update(profile.id, { selected_theme: themeName });
     setProfile(updated);
     return updated;
@@ -164,6 +199,11 @@ export function useUserProfile() {
 
   async function completeOnboarding({ selectedTheme, howHeard }) {
     if (!profile) return;
+    if (demoMode) {
+      const updated = { ...profile, selected_theme: selectedTheme || DEFAULT_THEME, how_heard_about_us: howHeard || '', onboarding_completed: true };
+      setProfile(updated);
+      return updated;
+    }
     const updated = await base44.entities.UserProfile.update(profile.id, {
       selected_theme: selectedTheme || DEFAULT_THEME,
       how_heard_about_us: howHeard || '',
@@ -173,5 +213,5 @@ export function useUserProfile() {
     return updated;
   }
 
-  return { user, profile, loading, addPoints, redeemReward, setProfile, updateTheme, completeOnboarding };
+  return { user, profile, loading, addPoints, redeemReward, setProfile, updateTheme, completeOnboarding, demoMode };
 }
