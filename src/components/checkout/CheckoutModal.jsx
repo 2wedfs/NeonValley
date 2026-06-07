@@ -244,7 +244,7 @@ export default function CheckoutModal({ event, user, profile, onClose, onSuccess
                   </div>
                   <div>
                     <p className="text-sm font-space font-bold text-white">App RSVP Ticket</p>
-                    <p className="text-[10px] text-white/40 font-inter mt-0.5">Pay now · Show at the door</p>
+                    <p className="text-[10px] text-white/40 font-inter mt-0.5">Your RSVP is free. Pay now or pay at the door.</p>
                   </div>
                 </div>
                 <p className="text-xl font-space font-bold text-white">${basePrice.toFixed(2)}</p>
